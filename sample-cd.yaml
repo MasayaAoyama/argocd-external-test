@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-cd
+  namespace: argocd
+spec:
+  project: default
+  # 適用するマニフェスト
+  source:
+    repoURL: https://github.com/MasayaAoyama/argocd-external-test.git
+    targetRevision: main
+    path: manifests/
+    directory:
+      recurse: true
+#      include: "**sample-cd-deployment-ga.yaml**"
+  # 適用先（デフォルトは自分自身のクラスタ）
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  # 同期に関する設定
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

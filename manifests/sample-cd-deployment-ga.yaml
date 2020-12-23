@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-cd-deployment-ga
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample-cd-app-ga
+  template:
+    metadata:
+      labels:
+        app: sample-cd-app-ga
+    spec:
+      containers:
+      - name: nginx-container
+        image: amsy810/echo-nginx:v2.0
